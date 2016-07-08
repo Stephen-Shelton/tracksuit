@@ -2,7 +2,9 @@ var db = require('../config');
 var mongoose = require('mongoose');
 
 var trackSchema = new mongoose.Schema({
-  activities: [String]
+  category: String,
+  time: Date,
+  state: String
 });
 
 var Track = mongoose.model('Tracker', trackSchema);
