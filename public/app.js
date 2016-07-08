@@ -17,7 +17,7 @@ angular.module("app", ['ui.bootstrap'])
     $scope.payload.category = target;
     $scope.payload.timestamp = Date.now();
     $scope.payload.state = $scope.state
-    $http.post('/api/toggleActivity', json.stringify($scope.payload))
+    $http.post('/api/toggleActivity', JSON.stringify($scope.payload))
   }
 
 
