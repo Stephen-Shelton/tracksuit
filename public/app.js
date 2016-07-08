@@ -8,6 +8,7 @@ angular.module("app", ['ui.bootstrap'])
     state: ""
   }
 
+
   $scope.sendData = function($document){
     var target = document.getElementById('category').innerHTML
     $scope.payload.category = target;
@@ -20,8 +21,4 @@ angular.module("app", ['ui.bootstrap'])
     $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
   }
 
-})
 
-var func = function(){
-  return "func"
-}
