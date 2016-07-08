@@ -36,7 +36,7 @@ describe('create track entry', function () {
 
     it('should save without error', function(done) {
       var u = new Track({
-        catagories: 'sleep',
+        category: 'sleep',
         time: new Date(),
         state: 'start'
       });
@@ -45,17 +45,17 @@ describe('create track entry', function () {
 
     it('shold save different entries', function(done) {
       var u = new Track({
-        catagories: 'sleep',
+        category: 'sleep',
         time: new Date(),
         state: 'stop'
       });
       var u1 = new Track({
-        catagories: 'food',
+        category: 'food',
         time: new Date(),
         state: 'start'
       });
       var u2 = new Track({
-        catagories: 'sport',
+        category: 'sport',
         time: new Date(),
         state: 'start'
       });
@@ -66,7 +66,7 @@ describe('create track entry', function () {
     })
 
     it('respond with matching records', function() {
-      return Track.find({catagories: 'sleep'}, function(err, tracks) {
+      return Track.find({category: 'sleep'}, function(err, tracks) {
         tracks.length.should.equal(2);
       });
     });

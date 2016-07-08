@@ -2,7 +2,7 @@ var db = require('../config');
 var mongoose = require('mongoose');
 
 var trackSchema = new mongoose.Schema({
-  catagories: String,
+  category: String,
   time: Date,
   state: String
 });
