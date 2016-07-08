@@ -6,7 +6,6 @@ angular.module("app", ['ui.bootstrap'])
     category: "",
     time: "",
     state: ""
-    
   }
 
   $scope.sendData = function($document){
@@ -22,3 +21,7 @@ angular.module("app", ['ui.bootstrap'])
   }
 
 })
+
+var func = function(){
+  return "func"
+}
