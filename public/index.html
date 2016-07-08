@@ -57,6 +57,19 @@
                 </div>
 
 <!-- ******** Category/Activity Selectors ********** -->
+                <div ui-view class='row'>
+                    
+
+                </div>
+
+
+
+
+
+
+
+
+
                 <div class="row">
         <!-- ********* SLEEP ************ -->
                     <div class="col-lg-3 col-md-6" ng-controller="appController">
@@ -69,7 +82,7 @@
 
                                     <div class="col-xs-6 text-right">
 
-                                        <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData($event); changeState()"> {{state}} </button> </div>
+                                        <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
                                         <div> Started: 3 hours ago </div>
                                     </div>
                                 </div>
@@ -166,29 +179,32 @@
                 </div>
 
 <!-- ******** Main Data Display ******** -->
-                <div class="row">
+                <div class="row" ng-controller="appController">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Activity Summary</h3>
                             </div>
                             <div class="panel-body">
-                               TABLE WILL GO HERE
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
+                               
+                            
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Category</th>
+                                    <th>Duration</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <tr>
+                                    <td>You {{category.category}} for</td>
+                                    <td>{{category.duration}} Miliseconds</td>
+                                  </tr>
+                                  </tr>
+                                </tbody>
+                              </table>
+
 
 
                             </div>
@@ -257,10 +273,13 @@
 
             </div> <!-- /.container-fluid -->
         </div> <!-- /#page-wrapper -->
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src=".https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap.js"></script>
+
         <!-- <script src="../node_modules/angular/angular.js"></script> -->
         <!-- <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script> -->
         <script src="app.js"></script>
+        <script src="Category/category.js"></script>
 </body>
 </html>
