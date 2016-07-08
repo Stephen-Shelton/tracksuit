@@ -1,3 +1,4 @@
+var request = require('supertest');
 var chai = require('chai');
 var expect = chai.expect;
 var should = chai.should();
@@ -6,6 +7,7 @@ var should = chai.should();
 var db = require('../app/config');
 var Track = require('../app/model/track');
 var mongoose = require('mongoose');
+var app = require('../index');
 
 
 describe('create track entry', function () {
@@ -76,6 +78,27 @@ describe('create track entry', function () {
         tracks.length.should.equal(4);
       });
     });
+
+    it('should find the lasted record of a certain category', function() {
+      return Track.findOne({category: 'sleep'}, {}, {sort: { 'time' : -1 }}, function(err, track) {
+        return track.state.should.equal('stop');
+      });
+    });
+
+    describe('server test', function() {
+      it('should accept http post request', function(done) {
+        request(app)
+          .post('/api/toggleActivity')
+          .send({
+            category: 'sleep',
+            time: new Date(),
+            state: 'start'
+          })
+          .expect(200)
+          .end(done);
+      });
+    })
+
   });
 
 

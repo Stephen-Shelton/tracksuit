@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
+require('./lib/request-handler')(app);
 
 app.listen(port);
 console.log("Server listening on port " + port);
