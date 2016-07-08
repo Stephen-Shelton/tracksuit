@@ -1,55 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
     <title>Optimize your life</title>
-
-    <!-- Bootstrap Core CSS -->
+    
     <link href="styles/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="styles/css/sb-admin.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="styles/css/plugins/morris.css" rel="stylesheet">
-
-   
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="app.js"></script>
 </head>
 
-<body>
-
+<body ng-app="app">
     <div id="wrapper">
-
-        <!-- Navigation -->
+        
+<!-- *************** TOP NAVBAR *******************-->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
+            <!-- Top Left Menu -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Track Suit</a>
+                <a class="navbar-brand" href="#">Track Suit</a>
             </div>
-            <!-- Top Menu Items -->
+            <!-- Top Right Menu Items -->
             <ul class="nav navbar-right top-nav">  
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -61,16 +40,17 @@
                     </ul>
                 </li>
             </ul>
+        </nav>
 
         <div id="page-wrapper">
-
             <div class="container-fluid">
 
-                <!-- ************************** PAGE HEADING **************************-->
+
+<!-- *************** PAGE HEADING *******************-->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Dashboard <small>Statistics Overview</small>
+                            Your Activity Manager <small> <!-- should something go here? --> </small>
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -80,20 +60,23 @@
                     </div>
                 </div>
                 
-
-
-        <!-- ************************** TASK 1 ************************** -->
+<!-- ******** Category/Activity Selectors ********** -->
                 <div class="row">
+        <!-- ********* SLEEP ************ -->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-6 huge">
+                                        Sleep
                                         <i class="fa fa-comments fa-5x"></i>
+
                                     </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
-                                        <div>New Comments!</div>
+
+                                    <div class="col-xs-6 text-right">
+
+                                        <div class="huge"> <button class='btn btn-lg btn-default'> Start </button> </div>
+                                        <div> Time started: 12:15pm </div>
                                     </div>
                                 </div>
                             </div>
@@ -106,19 +89,21 @@
                             </a>
                         </div>
                     </div>
-
-
-        <!-- ************************** TASK 2 ************************** -->
+        <!-- ********* EXERCISE ********* -->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
+                                    <div class="col-xs-6 huge">
+                                        Exercise
+                                        <i class="fa fa-comments fa-5x"></i>
+
                                     </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
+
+                                    <div class="col-xs-6 text-right">
+
+                                        <div class="huge"> <button class='btn btn-lg btn-default'> Start </button> </div>
+                                        <div> Time started: 12:15pm </div>
                                     </div>
                                 </div>
                             </div>
@@ -131,21 +116,21 @@
                             </a>
                         </div>
                     </div>
-
-
-
-
-        <!-- ************************** TASK 3 ************************** -->
+        <!-- ********* SOCIAL *********** -->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <div class="col-xs-6 huge">
+                                        Social
+                                        <i class="fa fa-comments fa-5x"></i>
+
                                     </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
-                                        <div>New Orders!</div>
+
+                                    <div class="col-xs-6 text-right">
+
+                                        <div class="huge"> <button class='btn btn-lg btn-default'> Start </button> </div>
+                                        <div> Time started: 12:15pm </div>
                                     </div>
                                 </div>
                             </div>
@@ -158,20 +143,20 @@
                             </a>
                         </div>
                     </div>
-
-
-
-        <!-- ************************** TASK 4 ************************** -->
+        <!-- ********* WORK ************* -->
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-red">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
+                                    <div class="col-xs-6 huge">
+                                        Work
+                                        <i class="fa fa-comments fa-5x"></i>
                                     </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
+
+                                    <div class="col-xs-6 text-right">
+
+                                        <div class="huge"> <button class='btn btn-lg btn-default'> Start </button> </div>
+                                        <div> Time started: 12:15pm </div>
                                     </div>
                                 </div>
                             </div>
@@ -185,46 +170,83 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
-
-
-
-<!--  ************************************************** MAIN CHART ************************************************** -->
+    
+<!-- ******** Main Data Display ******** -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Activity Summary</h3>
                             </div>
                             <div class="panel-body">
-                                <div id="morris-area-chart"></div>
+                               TABLE WILL GO HERE
+                                <br>
+                                <br>
+                                <br>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
+
+<!-- ******** Secondary Data Display ******** -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Display 1 </h3>
+                            </div>
+                            <div class="panel-body">
+                                Dummy info
+                                <br>
+                                Dummy info
+                                <br>
+                                Dummy info
+                                <div class="text-right">
+                                    <a href="#"> View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Display 2 </h3>
+                            </div>
+                            <div class="panel-body">
+                                Dummy info
+                                <br>
+                                Dummy info
+                                <br>
+                                Dummy info
+                                <div class="text-right">
+                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Display 3</h3>
+                            </div>
+                            <div class="panel-body">
+                                 Dummy info
+                                <br>
+                                Dummy info
+                                <br>
+                                Dummy info
+                                <div class="text-right">
+                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="styles/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="styles/js/bootstrap.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="styles/js/plugins/raphael.min.js"></script>
-    <script src="styles/js/plugins/morris.min.js"></script>
-    <script src="styles/js/plugins/morris-data.js"></script>
-
+            </div> <!-- /.container-fluid -->
+        </div> <!-- /#page-wrapper -->
+    </div> <!-- /#wrapper -->
 </body>
-
 </html>
