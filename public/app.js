@@ -1,4 +1,4 @@
-angular.module("app", ['ui.bootstrap'])
+angular.module("app", ['ui.bootstrap', 'moment'])
 
 .controller('appController', function($scope, $http, $document){
   $scope.state = "Start"
