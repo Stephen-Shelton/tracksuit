@@ -19,32 +19,56 @@ angular.module("app", [
 //     })
 })
 
-.controller('appController', function($scope, $http, $document){
-  $scope.state = "start"
+.controller('appController', function($scope, $http, $document, appFactory){
+  $scope.state = "start";
   $scope.payload = {
     category: "",
     time: "",
     state: ""
-  }
+  };
+   $scope.category = {
+      category : "filler text",
+      duration : "0 seconds"
+    };
+  $scope.sendData = appFactory.sendData;
 
+  $scope.changeState = function(){
+    $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
+  };
 
-  $scope.sendData = function($document){
+  $scope.category = appFactory.category;
+
+})
+.factory('appFactory', ['$document', '$http', function($document, $http){
+
+  var sendData = function(payload, state){
     var target = document.getElementById('category').innerHTML
-    $scope.payload.category = target;
-    $scope.payload.time = Date.now();
-    $scope.payload.state = $scope.state
-    $http({
-      method: 'POST',
-      url: '/api/toggleActivity'
-    }).then(function successCallback(response) {
-      console.log(response)
+    payload.category = target;
+    payload.time = Date.now();
+    payload.state = state
+
+   
+
+    $http.post('/api/toggleActivity', payload)
+    .then(function successCallback(response) {
+      category.category = response.data.category;
+      category.duration = response.data.duration;
+    
+      console.log(category)
+    
     }, function errorCallback(err) {
       console.error(err)
     });
   }
 
-  $scope.changeState = function(){
-    $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
+ 
+
+  return {
+    sendData : sendData,
+    category : category
   }
+}])
+
+
 
 
