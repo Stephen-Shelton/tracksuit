@@ -71,8 +71,8 @@
 
                                     <div class="col-xs-6 text-right">
 
-                                        <div class="huge"> <button class='btn btn-lg btn-default' ng-click="sendData($event); changeState()"> {{state}} </button> </div>
-                                        <div> Time started: 12:15pm </div>
+                                        <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData($event); changeState()"> {{state}} </button> </div>
+                                        <div> Started: 3 hours ago </div>
                                     </div>
                                 </div>
                             </div>
@@ -259,5 +259,6 @@
 
             </div> <!-- /.container-fluid -->
         </div> <!-- /#page-wrapper -->
+
 </body>
 </html>
