@@ -8,9 +8,6 @@ angular.module("app", ['ui.bootstrap'])
     state: ""
   }
 
-  $scope.changeState = function(){
-    $scope.state === "Start" ? $scope.state = "Stop" : $scope.state = "Start"
-  }
 
   $scope.sendData = function($event, $document){
     var target = document.getElementById('category').innerHTML
@@ -20,8 +17,15 @@ angular.module("app", ['ui.bootstrap'])
     $http.post('/api/toggleActivity', JSON.stringify($scope.payload))
   }
 
-
-  $scope.recieveData = function(){
-
+// testing stuff
+  $scope.changeState = function(){
+    $scope.state === "Start" ? $scope.state = "Stop" : $scope.state = "Start"
   }
+
+
+  //
+  //
+  // $scope.recieveData = function(){
+  //
+  // }
 })
