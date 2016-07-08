@@ -6,7 +6,6 @@ angular.module("app", ['ui.bootstrap'])
     category: "",
     timestamp: "",
     state: ""
-    
   }
 
   $scope.changeState = function(){
@@ -26,3 +25,7 @@ angular.module("app", ['ui.bootstrap'])
 
   }
 })
+
+var func = function(){
+  return "func"
+}
