@@ -1,13 +1,65 @@
-<div class="col-lg-3 col-md-6">
-    <div class="panel panel-primary"> <!-- change color here -->
+   <div class='col-xs-3'>
+    <div class="panel panel-primary" ng-controller = "sleepController"> <!-- change color here -->
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-6 huge">
-                    <p id='category'> Sleep </p> <!-- do not hard code catgeory -->
+                    <p class='category'> Sleep </p>
                 </div>
                 <div class="col-xs-6 text-right">
                     <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
-                    <div> Started: [Moment Stamp] </div> <!-- do not hard code moment time -->
+                    <div> Started: [Moment Stamp] </div>
+                </div>
+                <select ng-options="activity as activity.label for activity in activities track by activity.id" ng-model="selected"></select>
+            </div>
+        </div>
+
+
+
+
+        <a href="#">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div> 
+   </div>
+
+    <div class='col-xs-3'>
+        <div class="panel panel-primary" ng-controller = "workController"> <!-- change color here -->
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6 huge">
+                        <p class='category'> Work </p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
+                        <div> Started: [Moment Stamp] </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div> 
+   </div>
+
+   <div class='col-xs-3'>
+    <div class="panel panel-primary" ng-controller = "funController"> <!-- change color here -->
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6 huge">
+                    <p class='category'> Fun </p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
+                    <div> Started: [Moment Stamp] </div>
                 </div>
             </div>
         </div>
@@ -19,4 +71,29 @@
                 <div class="clearfix"></div>
             </div>
         </a>
-    </div>
+    </div> 
+   </div>
+
+   <div class='col-xs-3'>
+    <div class="panel panel-primary" ng-controller = "selfController"> <!-- change color here -->
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6 huge">
+                    <p class='category'> {{categoryName}}</p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
+                    <div> Started: [Moment Stamp] </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="#">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div> 
+   </div>
