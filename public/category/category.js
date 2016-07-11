@@ -1,5 +1,4 @@
 var category = angular
-
   .module('category', [])
 
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
