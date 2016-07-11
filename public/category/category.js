@@ -18,10 +18,12 @@ var category = angular
       }
     ];
 
-   $scope.categoryName = "Sleep"
+   $scope.categoryName = "Sleep";
    $scope.state = "start";
+   var selectedActivity = $scope.selectedActivity;
     $scope.payload = {
       category: $scope.categoryName,
+      activity: selectedActivity,
       time: "",
       state: ""
     };
@@ -103,18 +105,18 @@ var category = angular
   })
   .factory('categoryFactory', ['$document', '$http', function($document, $http){
 
-    var sendData = function(payload, state){
-      // console.log('sending data')
-      console.log('sending payload: ', payload)
-      // payload.category = target;
+    var sendData = function(payload, state, selectedActivity){
       payload.time = Date.now();
       payload.state = state
+      payload.activity = selectedActivity.label
+      console.log('sending payload: ', payload)
 
       $http.post('/api/toggleActivity', payload)
       .then(function successCallback(response) {
-        // console.log(response.data)
         category.category = response.data.category;
         category.duration = response.data.duration;
+        console.log('resp from server: ', response.data)
+        console.log('----------------------')
       }, function errorCallback(err) {
         console.error(err)
       });
