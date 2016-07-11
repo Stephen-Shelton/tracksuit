@@ -37,15 +37,47 @@ describe('create track entry', function () {
     });
 
     it('should save without error', function(done) {
-      var u = new Track({
+      var u1 = new Track({
+        userID: '001',
         category: 'sleep',
-        time: new Date(),
-        state: 'start'
+        activities: [{
+          name: 'sleep1',
+          time: [{
+            start: new Date(),
+            stop: new Date()+100
+          }]
+        }]
       });
-      u.save(done);
+      var u2 = new Track({
+        userID: '002',
+        category: 'sleep',
+        activities: [{
+          name: 'sleep2',
+          time: [{
+            start: new Date(),
+            stop: new Date()+100
+          }]
+        }]
+      });
+      var u3 = new Track({
+        userID: '001',
+        category: 'exercise',
+        activities: [{
+          name: 'sleep1',
+          time: [{
+            start: new Date(),
+            stop: new Date()+100
+          }]
+        }]
+      });
+
+      u3.save();
+      u2.save();
+      u1.save();
+      done();
     });
 
-    it('shold save different entries', function(done) {
+    xit('shold save different entries', function(done) {
       var u = new Track({
         category: 'sleep',
         time: new Date(),
@@ -67,25 +99,47 @@ describe('create track entry', function () {
       done();
     })
 
-    it('respond with matching records', function() {
-      return Track.find({category: 'sleep'}, function(err, tracks) {
-        tracks.length.should.equal(2);
+    it('should add activities', function() {
+      return Track.findOne({userID: '001', category: 'sleep'}, function(err, tracks) {
+        tracks.activities.push({
+          name: 'sleep3',
+          time: [{
+            start: new Date(),
+            stop: new Date()+100
+          }]
+        });
+        tracks.save();
+      });
+    })
+
+    it('respond with matching records', function(done) {
+      return Track.findOne({userID: '001', category: 'sleep', 'activities.name': 'sleep1'}, function(err, tracks) {
+        // tracks.time.push({
+        //   start: new Date()+300,
+        //   stop: new Date()+400
+        // });
+        tracks.activities[0].time.push({
+          start: new Date()+300,
+          stop: new Date()+400
+        });
+        tracks.save();
+        tracks.length.should.equal(1);
       });
     });
 
-    it('should find all records', function() {
+    xit('should find all records', function() {
       return Track.find({}, function(err, tracks) {
         tracks.length.should.equal(4);
       });
     });
 
-    it('should find the lasted record of a certain category', function() {
+    xit('should find the lasted record of a certain category', function() {
       return Track.findOne({category: 'sleep'}, {}, {sort: { 'time' : -1 }}, function(err, track) {
         return track.state.should.equal('stop');
       });
     });
 
-    describe('server test', function() {
+    xdescribe('server test', function() {
       it('should accept http post request', function(done) {
         request(app)
           .post('/api/toggleActivity')
