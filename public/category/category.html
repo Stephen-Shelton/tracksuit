@@ -1,13 +1,13 @@
-<div class="col-lg-3 col-md-6" ng-controller="appController">
-    <div class="panel panel-primary">
+<div class="col-lg-3 col-md-6">
+    <div class="panel panel-primary"> <!-- change color here -->
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-6 huge">
-                    <p id='category'>Sleep</p>
+                    <p id='category'> Sleep </p> <!-- do not hard code catgeory -->
                 </div>
                 <div class="col-xs-6 text-right">
                     <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
-                    <div> Started: 3 hours ago </div>
+                    <div> Started: [Moment Stamp] </div> <!-- do not hard code moment time -->
                 </div>
             </div>
         </div>
@@ -19,6 +19,4 @@
                 <div class="clearfix"></div>
             </div>
         </a>
-        
     </div>
-</div>
