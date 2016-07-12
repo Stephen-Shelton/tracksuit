@@ -2,9 +2,7 @@ var category = angular
   .module('category', [])
 
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
-    ////////////////////////
-    /// Not sure if we even need this controller
-    ///////////////////////
+    
   })
   .controller('sleepController', function($scope, $http, $document, categoryFactory){
     $scope.activities = [
@@ -36,6 +34,30 @@ var category = angular
         $scope.category.duration = response.data.duration;
       });
     }
+
+    $scope.getAllData = function(){
+      categoryFactory.getAllData().then(function(response){
+        var activityData = {
+
+        };
+        response.data.forEach(function(document){
+          document.time.forEach(function(time){
+            // console.log(new Date(time[0]).getMonth())
+            var getTime = new Date(time[0])
+            var date =  getTime.getMonth() + "/" + getTime.getDate() + "/" + getTime.getFullYear()
+            if(activityData[date] === undefined){
+              activityData[date] = []
+            }
+          })
+        })
+        
+        
+
+
+
+      })
+    }
+
   })
 
   .controller('funController', function($scope, $http, $document, categoryFactory){
@@ -104,16 +126,20 @@ var category = angular
 
   .factory('categoryFactory', ['$document', '$http', function($document, $http){
     var category = {};
+    var oldData = {}
 
     var sendData = function(payload, selectedActivity){
       payload.time = Date.now();
       payload.activity = selectedActivity.label
       return $http.post('/api/toggleActivity', payload)
     };
-
+    var getAllData = function(user){
+      return $http.post('/api/all', {userID: '001'});
+    }
 
     return {
       sendData : sendData,
-      category: category
+      category : category,
+      getAllData : getAllData
     }
   }])
