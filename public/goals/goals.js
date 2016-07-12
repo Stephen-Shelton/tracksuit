@@ -6,7 +6,7 @@
 
 angular.module('goals', [])
 
-.controller('goalsController', ['$scope', function($scope) {
+.controller('goalsController', ['$scope', 'goalsFactory', function($scope, goalsFactory) {
   $scope.time = goalsFactory.time;
   $scope.categories = goalsFactory.categories;
   $scope.goals = goalsFactory.goals;
@@ -43,3 +43,30 @@ angular.module('goals', [])
     goals: goals
   }
 })
+
+
+// view goals
+  // display actual time and goal time --> eventually display bar chart of activity time vs goal time
+    // click on button to edit goal --> eventually click on bar to edit goal
+      // on edit goal interface choose a new number of target hours
+        // put to server updated goal
+        // return to default goal view, displaying updated goal
+
+// TODO goal integration with main view
+  // inspiring callouts when you make progress on a goal
+  // nagging reminders when you get close to a goal in a 'negative' category
+  // neutral callout when you do an activity you don't have a goal for
+
+// TODO create daily or weekly goals
+
+// TODO make suggestions on how to achieve goals based on activity history
+
+// goal schema:
+/*
+ {
+   userID: String,
+   goalCategory: String,
+   goalActivityName: String,
+   goalTime: Number
+ }
+*/

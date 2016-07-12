@@ -6,15 +6,16 @@ angular.module("app", [
   ])
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  // $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('goals', {
     url: '/goals',
-    templateUrl: './goals.html',
+    templateUrl: './goals/goals.html',
     controller: 'goalsController'
   })
-  $stateProvider.state('category', {
-    url: '/',
-    templateUrl: 'category.html'
-  })
+  // $stateProvider.state('category', {
+  //   url: '/',
+  //   templateUrl: './category/category.html',
+  //   controller: 'categoryController'
+  // })
 })
