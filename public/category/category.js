@@ -2,9 +2,7 @@ var category = angular
   .module('category', [])
 
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
-    ////////////////////////
-    /// Not sure if we even need this controller
-    ///////////////////////
+    
   })
   .controller('sleepController', function($scope, $http, $document, categoryFactory){
     $scope.activities = [
@@ -36,6 +34,13 @@ var category = angular
         $scope.category.duration = response.data.duration;
       });
     }
+
+    $scope.getAllData = function(){
+      categoryFactory.getAllData().then(function(response){
+        console.log(response);
+      })
+    }
+
   })
 
   .controller('funController', function($scope, $http, $document, categoryFactory){
@@ -110,10 +115,13 @@ var category = angular
       payload.activity = selectedActivity.label
       return $http.post('/api/toggleActivity', payload)
     };
-
+    var getAllData = function(user){
+      return $http.get('/api/all', {userID: '001'});
+    }
 
     return {
       sendData : sendData,
-      category: category
+      category : category,
+      getAllData : getAllData
     }
   }])
