@@ -13,17 +13,17 @@ angular.module('goals', [])
 
   $scope.createGoal = function(category, time) {
     var goal = {
-      userID = 'testID', //TODO: Update this to username from global factoryvar
-      goalCategory = category,
-      goalActivityName = category, //TODO: Update this to activity from $scope
-      goalTime = time
+      userID: 'testID', //TODO: Update this to username from global factoryvar
+      goalCategory: category,
+      goalActivityName: category, //TODO: Update this to activity from $scope
+      goalTime: time
     };
 
     $scope.goals[goal.goalActivityName] = goal;
     return goal;
-  }
+  };
 
-  $scope.postGoal = function($scope.category, $scope.hours) {
+  $scope.postGoal = function(categories, time) {
     // sendData
       //.then display posted data
   }
