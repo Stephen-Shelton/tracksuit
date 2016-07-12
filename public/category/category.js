@@ -19,20 +19,20 @@ var category = angular
     ];
 
     $scope.categoryName = "Sleep";
-    
+
     var selectedActivity = $scope.selectedActivity;
-    
+
     $scope.payload = {
       category: $scope.categoryName,
       activity: selectedActivity,
       time: ""
     };
-    
+
     $scope.category = {
       category : "filler text",
       duration : "0 seconds"
     };
-    
+
     $scope.sendData = categoryFactory.sendData;
     $scope.category = categoryFactory.category;
 
@@ -120,7 +120,7 @@ var category = angular
     }
 
     return {
-      category : category
+      category : category,
       sendData : sendData
     }
   }])

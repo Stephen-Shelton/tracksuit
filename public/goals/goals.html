@@ -1,0 +1,6 @@
+<!-- //interface for setting goals -->
+
+<div class='goal-entry' ng-repeat='category in categories'>
+  <button type='button' ng-click='createGoal(category.name, 100)' value={{category.name}}>{{category.name}}</button>
+</div>
+<h3>{{goals}}</h3>
