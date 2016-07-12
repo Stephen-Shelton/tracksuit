@@ -9,32 +9,31 @@ var category = angular
   .controller('sleepController', function($scope, $http, $document, categoryFactory){
     $scope.activities = [
       {
-      id: 1,
-      label: 'Nap'
+        id: 1,
+        label: 'Nap'
       },
       {
-      id: 2,
-      label: 'Deep Sleep'
+        id: 2,
+        label: 'Deep Sleep'
       }
     ];
 
-   $scope.categoryName = "Sleep"
-   $scope.state = "start";
+    $scope.categoryName = "Sleep";
+    
+    var selectedActivity = $scope.selectedActivity;
+    
     $scope.payload = {
       category: $scope.categoryName,
-      time: "",
-      state: ""
+      activity: selectedActivity,
+      time: ""
     };
-     $scope.category = {
-        category : "filler text",
-        duration : "0 seconds"
-      };
+    
+    $scope.category = {
+      category : "filler text",
+      duration : "0 seconds"
+    };
+    
     $scope.sendData = categoryFactory.sendData;
-
-    $scope.changeState = function(){
-      $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
-    };
-
     $scope.category = categoryFactory.category;
 
   })
@@ -103,24 +102,25 @@ var category = angular
   })
   .factory('categoryFactory', ['$document', '$http', function($document, $http){
 
-    var sendData = function(payload, state){
-      // console.log('sending data')
-      console.log('sending payload: ', payload)
-      // payload.category = target;
+    var sendData = function(payload, state, selectedActivity){
+      var category = {};
       payload.time = Date.now();
-      payload.state = state
+      payload.activity = selectedActivity.label
+      console.log('sending payload: ', payload)
 
       $http.post('/api/toggleActivity', payload)
       .then(function successCallback(response) {
-        // console.log(response.data)
-        category.category = response.data.category;
-        category.duration = response.data.duration;
+        category.category = response.category;
+        category.duration = response.duration;
+        console.log('resp from server: ', response.data)
+        console.log('----------------------')
       }, function errorCallback(err) {
         console.error(err)
       });
     }
 
     return {
+      category : category
       sendData : sendData
     }
   }])

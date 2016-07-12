@@ -6,15 +6,13 @@
                     <p class='category'> Sleep </p>
                 </div>
                 <div class="col-xs-6 text-right">
-                    <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state); changeState()"> {{state}} </button> </div>
+                    <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, state, selectedActivity); changeState()"> Submit </button> </div>
                     <div> Started: [Moment Stamp] </div>
                 </div>
-                <select ng-options="activity as activity.label for activity in activities track by activity.id" ng-model="selected"></select>
+                <select ng-options="activity as activity.label for activity in activities track by activity.id" 
+                        ng-model="selectedActivity"></select>
             </div>
         </div>
-
-
-
 
         <a href="#">
             <div class="panel-footer">
