@@ -1,8 +1,8 @@
 angular.module("app", [
   'ui.bootstrap',
   'category',
-  'ui.router',
   'goals'
+  'ui.router'
   ])
 
 .config(function($stateProvider, $urlRouterProvider) {
