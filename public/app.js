@@ -1,21 +1,22 @@
 angular.module("app", [
   'ui.bootstrap',
   'category',
-  'ui.router',
-  'goals'
+  'goals',
+  'ui.router'
   ])
 
 .config(function($stateProvider, $urlRouterProvider) {
-  // $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('goals', {
     url: '/goals',
     templateUrl: './goals/goals.html',
     controller: 'goalsController'
   })
-  // $stateProvider.state('category', {
-  //   url: '/',
-  //   templateUrl: './category/category.html',
-  //   controller: 'categoryController'
-  // })
+
+  .state('signin', {
+    url: '/signin',
+    templateUrl: './auth/signin.html'
+  })
+
 })
