@@ -15,9 +15,10 @@ var category = angular
       {
         id: 2,
         label: 'Deep Sleep'
-      }
-    ];
+      }];
 
+    $scope.category =  categoryFactory.category;
+    $scope.activity = $scope.activities[0].label
     $scope.categoryName = "Sleep";
 
     var selectedActivity = $scope.selectedActivity;
@@ -28,15 +29,15 @@ var category = angular
       time: ""
     };
 
-    $scope.category = {
-      category : "filler text",
-      duration : "0 seconds"
-    };
-
-    $scope.sendData = categoryFactory.sendData;
-    $scope.category = categoryFactory.category;
-
+    $scope.sendData = function(payload, selectedActivity){
+      categoryFactory.sendData(payload, selectedActivity).then(function(response){
+        $scope.category.category = response.data.category;
+        $scope.category.activity = response.data.activity;
+        $scope.category.duration = response.data.duration;
+      });
+    }
   })
+
   .controller('funController', function($scope, $http, $document, categoryFactory){
    $scope.categoryName = "Fun"
    $scope.state = "start";
@@ -100,27 +101,19 @@ var category = angular
     $scope.category = categoryFactory.category;
 
   })
-  .factory('categoryFactory', ['$document', '$http', function($document, $http){
 
-    var sendData = function(payload, state, selectedActivity){
-      var category = {};
+  .factory('categoryFactory', ['$document', '$http', function($document, $http){
+    var category = {};
+
+    var sendData = function(payload, selectedActivity){
       payload.time = Date.now();
       payload.activity = selectedActivity.label
-      console.log('sending payload: ', payload)
+      return $http.post('/api/toggleActivity', payload)
+    };
 
-      $http.post('/api/toggleActivity', payload)
-      .then(function successCallback(response) {
-        category.category = response.category;
-        category.duration = response.duration;
-        console.log('resp from server: ', response.data)
-        console.log('----------------------')
-      }, function errorCallback(err) {
-        console.error(err)
-      });
-    }
 
     return {
-      category : category,
-      sendData : sendData
+      sendData : sendData,
+      category: category
     }
   }])
