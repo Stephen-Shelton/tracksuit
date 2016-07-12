@@ -1,14 +1,10 @@
 var db = require('../config');
 var mongoose = require('mongoose');
 
-var timeSchema = new mongoose.Schema({
-  start: Date,
-  stop: Date
-});
 
 var activitySchema = new mongoose.Schema({
   name: String,
-  time: [timeSchema]
+  time: [Date]
 });
 
 var trackSchema = new mongoose.Schema({
