@@ -1,5 +1,5 @@
 var category = angular
-  .module('category', [])
+  .module('category', ['angularMoment'])
 
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
     
@@ -14,6 +14,11 @@ var category = angular
         id: 2,
         label: 'Deep Sleep'
       }];
+
+      $scope.message = {
+        text: 'hello world!',
+        time: new Date()
+      };
 
     $scope.category =  categoryFactory.category;
     $scope.activity = $scope.activities[0].label
@@ -72,7 +77,8 @@ var category = angular
             }
           });
         });
-        console.log(activityData); // test use log data
+        $scope.activityData = activityData;
+        console.log("$s activityData: ", $scope.activityData)
       });
     }
     $scope.getAllData(); // for test use, need to add data display panel

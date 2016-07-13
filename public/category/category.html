@@ -140,7 +140,7 @@
                 </div>
                 <div class="col-xs-6 text-right">
                     <div class="huge"> <button class='btn btn-lg btn-default' ng-click="setTime(); sendData(payload, selectedActivity); getCategory()"> Submit </button> </div>
-                    <div> Started: [Moment Stamp] </div>
+                    <div> {{message.text}} <span am-time-ago="message.time"></span> </div>
                 </div>
                 <select ng-options="activity as activity.label for activity in activities track by activity.id"
                         ng-model="selectedActivity"> {{activity}}</select>

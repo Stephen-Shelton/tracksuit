@@ -37,15 +37,29 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>Category</th>
-                        <th>Duration</th>
+                        <th>Date</th>
+                        <th>Activity Data</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                    <tr ng-repeat="(date, activityData) in activityData">
+                        <td> {{date}} </td> 
+                        <td> 
+                            <div ng-repeat="activityEntry in activityData">
+                                <p>{{activityEntry.category}}</p>
+                                <p>{{activityEntry.activity}}</p>
+                                <p ng-repeat= " time in activityEntry">
+                                    <span am-time-ago="time"></span>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                      <!-- <tr>
                         <td >{{category.category}} -- {{category.activity}}</td>
                         <td>{{category.duration}} Miliseconds</td>
-                      </tr>
+                      </tr> -->
                       </tr>
                     </tbody>
                   </table>

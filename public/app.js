@@ -2,7 +2,8 @@ angular.module("app", [
   'ui.bootstrap',
   'category',
   'goals',
-  'ui.router'
+  'ui.router',
+  'angularMoment'
   ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -42,4 +43,7 @@ angular.module("app", [
     })
   }
 })
+.run(function(amMoment) {
+    amMoment.changeLocale('de');
+});
 
