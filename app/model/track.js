@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var activitySchema = new mongoose.Schema({
   name: String,
-  time: [Date]
+  time: [Number]
 });
 
 var trackSchema = new mongoose.Schema({
