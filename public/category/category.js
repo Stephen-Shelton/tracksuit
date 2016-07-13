@@ -37,27 +37,44 @@ var category = angular
 
     $scope.getAllData = function(){
       categoryFactory.getAllData().then(function(response){
-        var activityData = {
-
-        };
-        response.data.forEach(function(document){
-          document.time.forEach(function(time){
+        var activityData = {};
+        response.data.forEach(function(doc){
+          doc.time.forEach(function(time){
             // console.log(new Date(time[0]).getMonth())
-            var getTime = new Date(time[0])
-            var date =  getTime.getMonth() + "/" + getTime.getDate() + "/" + getTime.getFullYear()
-            if(activityData[date] === undefined){
-              activityData[date] = []
+            var start = new Date(time[0])
+            var startDate =  start.getMonth() + "/" + start.getDate() + "/" + start.getFullYear();
+            var stop = new Date(time[1]);
+            var stopDate = stop.getMonth() + "/" + stop.getDate() + "/" + stop.getFullYear();
+            if(activityData[startDate] === undefined){
+              activityData[startDate] = [];
             }
-          })
-        })
-        
-        
-
-
-
-      })
+            if(stopDate === startDate) {
+              activityData[startDate].push({
+                category: doc.category,
+                activity: doc.activity,
+                time: time
+              });
+            } else {
+              var begin = new Date(time[1]).setHours(0,0,0,0);
+              var end = new Date(time[0]).setHours(23,59,99,999);
+              activityData[stopDate] = activityData[stopDate] || [];
+              activityData[startDate].push({
+                category: doc.category,
+                activity: doc.activity,
+                time: [start, end]
+              });
+              activityData[stopDate].push({
+                category: doc.category,
+                activity: doc.activity,
+                time: [begin, stop]
+              });
+            }
+          });
+        });
+        console.log(activityData); // test use log data
+      });
     }
-
+    $scope.getAllData(); // for test use, need to add data display panel
   })
 
   .controller('funController', function($scope, $http, $document, categoryFactory){
