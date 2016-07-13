@@ -2,10 +2,41 @@ var category = angular
   .module('category', [])
 
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
+    $scope.activities = [
+      {
+        id: 1,
+        label: 'Nap'
+      },
+      {
+        id: 2,
+        label: 'Deep Sleep'
+      }];
+
+    $scope.category =  categoryFactory.category;
+    $scope.activity = $scope.activities[0].label;
+    $scope.categoryName = categoryFactory.categoryNames[0];//"sleep";//
+
+    var selectedActivity = $scope.selectedActivity;
+
+    $scope.payload = {
+      category: $scope.categoryName,
+      activity: selectedActivity,
+      time: ""
+    };
+
+    $scope.sendData = function(payload, selectedActivity){
+      categoryFactory.sendData(payload, selectedActivity).then(function(response){
+        $scope.category.category = response.data.category;
+        $scope.category.activity = response.data.activity;
+        $scope.category.duration = response.data.duration;
+      });
+    }
+  })
+
     ////////////////////////
     /// Not sure if we even need this controller
     ///////////////////////
-  })
+  // })
   .controller('sleepController', function($scope, $http, $document, categoryFactory){
     $scope.activities = [
       {
@@ -105,6 +136,8 @@ var category = angular
   .factory('categoryFactory', ['$document', '$http', function($document, $http){
     var category = {};
 
+    var categoryNames = ['Sleep', 'Work'];
+
     var sendData = function(payload, selectedActivity){
       payload.time = Date.now();
       payload.activity = selectedActivity.label
@@ -114,6 +147,7 @@ var category = angular
 
     return {
       sendData : sendData,
-      category: category
+      category: category,
+      categoryNames: categoryNames
     }
   }])
