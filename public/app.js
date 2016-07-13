@@ -17,11 +17,11 @@ angular.module("app", [
     url: '/signin',
     templateUrl: './auth/signin.html'
   })
-  .state('category', {
-    url: '/',
-    templateUrl: './category/category.html',
-    controller: 'categoryController'
-  })
+  // .state('category', {
+  //   url: '/',
+  //   templateUrl: './category/category.html',
+  //   controller: 'categoryController'
+  // })
   .state('dashboard', {
     url: '/',
     templateUrl: './dashboard/dashboard.html',
