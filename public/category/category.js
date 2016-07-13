@@ -48,6 +48,7 @@ var category = angular
             if(activityData[startDate] === undefined){
               activityData[startDate] = [];
             }
+
             if(stopDate === startDate) {
               activityData[startDate].push({
                 category: doc.category,
