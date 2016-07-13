@@ -1,5 +1,5 @@
 var category = angular
-  .module('category', [])
+  .module('category', ['angularMoment'])
 
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
     
@@ -14,6 +14,11 @@ var category = angular
         id: 2,
         label: 'Deep Sleep'
       }];
+
+      $scope.message = {
+        text: 'hello world!',
+        time: new Date()
+      };
 
     $scope.category =  categoryFactory.category;
     $scope.activity = $scope.activities[0].label
@@ -40,19 +45,19 @@ var category = angular
         var activityData = {};
         response.data.forEach(function(doc){
           doc.time.forEach(function(time){
-            // console.log(new Date(time[0]).getMonth())
             var start = new Date(time[0])
-            var startDate =  start.getMonth() + "/" + start.getDate() + "/" + start.getFullYear();
+            var startDate =  (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear();
             var stop = new Date(time[1]);
-            var stopDate = stop.getMonth() + "/" + stop.getDate() + "/" + stop.getFullYear();
+            var stopDate = (stop.getMonth() + 1) + "/" + stop.getDate() + "/" + stop.getFullYear();
             if(activityData[startDate] === undefined){
               activityData[startDate] = [];
             }
+
             if(stopDate === startDate) {
               activityData[startDate].push({
                 category: doc.category,
                 activity: doc.activity,
-                time: time
+                time: [start.getTime(), stop.getTime()]
               });
             } else {
               var begin = new Date(time[1]).setHours(0,0,0,0);
@@ -61,20 +66,40 @@ var category = angular
               activityData[startDate].push({
                 category: doc.category,
                 activity: doc.activity,
-                time: [start, end]
+                time: [start.getTime(), end]
               });
               activityData[stopDate].push({
                 category: doc.category,
                 activity: doc.activity,
-                time: [begin, stop]
+                time: [begin, stop.getTime()]
               });
             }
           });
         });
-        console.log(activityData); // test use log data
+
+        function parseActivity(activitiesObj){
+          activityResults = []
+          for(var prop in activitiesObj){
+            activitiesObj[prop].forEach(function(activity){
+                individualActivity = {};
+                individualActivity.date = prop;
+                individualActivity.category = activity.category;
+                individualActivity.activity = activity.activity;
+                individualActivity.start = moment(activity.time[0]).format('h:mm A');
+                individualActivity.stop =  moment(activity.time[1]).format('h:mm A');
+                individualActivity.duration =  moment.duration((activity.time[1] - activity.time[0])/1000/60, 'minutes').format();
+
+
+                activityResults.push(individualActivity);
+            })
+          }
+          return activityResults;
+        }
+
+        $scope.activityData = parseActivity(activityData);
+        // console.log("$s activityData: ", $scope.activityData)
       });
     }
-    $scope.getAllData(); // for test use, need to add data display panel
   })
 
   .controller('funController', function($scope, $http, $document, categoryFactory){
@@ -146,7 +171,7 @@ var category = angular
     var oldData = {}
 
     var sendData = function(payload, selectedActivity){
-      payload.time = Date.now();
+      payload.time = Date.now()
       payload.activity = selectedActivity.label
       return $http.post('/api/toggleActivity', payload)
     };

@@ -2,7 +2,8 @@ angular.module("app", [
   'ui.bootstrap',
   'category',
   'goals',
-  'ui.router'
+  'ui.router',
+  'angularMoment'
   ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -27,4 +28,22 @@ angular.module("app", [
     templateUrl: './dashboard/dashboard.html',
     controller: 'categoryController'
   });
+})
+.controller("userController", function($scope, $location){
+  $scope.user = "FB User"
+  $scope.logout = function(){ 
+    $location.path('/signin')
+    
+  
+    //PASSPORT REQUEST TO SERVER?
+  }
+  $scope.login = function(){
+    $http.get('/auth/facebook', function(resp){
+      console.log(resp)
+    })
+  }
+})
+.run(function(amMoment) {
+    amMoment.changeLocale('de');
 });
+
