@@ -21,10 +21,17 @@
       </a>
     </div>
 
+
+    <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+
+
     <!-- Top Right Menu Items -->
     <ul class="nav navbar-right top-nav">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Menu <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+          Menu
+          <b class="caret"></b>
+        </a>
         <ul class="dropdown-menu">
           <li>
             <a href="#"><i class="fa fa-fw fa-user"></i>
@@ -49,7 +56,7 @@
 
 <!-- ** Main Body El ***************-->
 
-        <div id="page-wrapper" ui-view>
+        <div id="page-wrapper" ui-view ng-cloak>
 
 
         </div> <!-- /#page-wrapper -->
@@ -68,6 +75,7 @@
 
 
     <script src='auth/signin.js'></script>
+    <script src="auth/auth.js"></script>
     <script src="app.js"></script>
     <script src="category/category.js"></script>
     <script src="goals/goals.js"></script>
