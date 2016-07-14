@@ -14,22 +14,23 @@ angular.module('goals', [])
   $scope.createGoal = function(category, time) {
     var goal = {
       userID: 'testID', //TODO: Update this to username from global factoryvar
-      goalCategory: category,
-      goalActivityName: category, //TODO: Update this to activity from $scope
-      goalTime: time
+      category: category,
+      activity: category, //TODO: Update this to activity from $scope
+      time: time
     };
 
-    $scope.goals[goal.goalActivityName] = goal;
+    $scope.goals[goal.activity] = goal;
     return goal;
   };
 
   $scope.postGoal = function(categories, time) {
-    // sendData
+    goalsFactory.sendData($scope.createGoal('Exercise', 1000), {name: 'Exercise'})
+    .then(goalsFactory.getAllData).then(function(response) {console.log(response.data)});
       //.then display posted data
   }
 }])
 
-.factory('goalsFactory', function() {
+.factory('goalsFactory', ['$http', function($http) {
   var categories = [
     { name: 'Sleep' },
     { name: 'Exercise' }
@@ -37,12 +38,23 @@ angular.module('goals', [])
   var time = 0;
   var goals = {};
 
+  var sendData = function(payload, selectedActivity){
+    payload.time = 1000;
+    payload.activity = selectedActivity.name;
+    return $http.post('/api/goals', payload)
+  };
+  var getAllData = function(user){
+    return $http.get('/api/goals', {userID: '001'});
+  }
+
   return {
     categories: categories,
     time: time,
-    goals: goals
+    goals: goals,
+    sendData: sendData,
+    getAllData: getAllData
   }
-})
+}])
 
 
 // view goals
@@ -65,8 +77,8 @@ angular.module('goals', [])
 /*
  {
    userID: String,
-   goalCategory: String,
-   goalActivityName: String,
-   goalTime: Number
+   category: String,
+   activity: String,
+   time: Number
  }
 */
