@@ -4,17 +4,38 @@ var category = angular
   .controller('categoryController', function($scope, $http, $document, categoryFactory){
     
   })
-  .controller('chartCtrl', function($scope) {
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.series = ['Series A', 'Series B'];
-    $scope.data = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ];
-    $scope.onClick = function (points, evt) {
-      console.log(points, evt);
-    };
+  .controller('chartCtrl', function($scope, categoryFactory) {
+    $scope.labels = [];
+    $scope.data = [];
+    var colors = {
+      sleep: '#337AB7',
+      fun: "#5CB85C",
+      work: "#D9534F",
+      development:"#F0AD4E"
+    }
+   
+    $scope.$watch(function() {return categoryFactory.get();}, function (value) {
+      var dougnutData = {}
+      
+      for (var i = 0; i < value.length; i++) {
+        var activity = value[i];
+        if(!dougnutData[activity.category]){
+          dougnutData[activity.category] = activity.duration;
+        }
+        else {
+          dougnutData[activity.category] += activity.duration;
+        }
+
+      }
+      for(var prop in dougnutData){
+        $scope.labels.push(prop);
+        $scope.data.push(Math.round(dougnutData[prop]/1000/60/60))
+        // $scope.colours.push(colors[prop])
+      }
+    });
+    
   })
+
   .controller('sleepController', function($scope, $http, $document, categoryFactory){
     $scope.activities = [
       {
@@ -98,9 +119,7 @@ var category = angular
                 individualActivity.activity = activity.activity;
                 individualActivity.start = moment(activity.time[0]).format('h:mm A');
                 individualActivity.stop =  moment(activity.time[1]).format('h:mm A');
-                individualActivity.duration =  moment.duration((activity.time[1] - activity.time[0])/1000/60, 'minutes').format();
-
-
+                individualActivity.duration =  Math.floor(moment.duration((activity.time[1] - activity.time[0])/1000/60/60, 'hours'))
                 activityResults.push(individualActivity);
             })
           }
@@ -108,7 +127,7 @@ var category = angular
         }
 
         $scope.activityData = parseActivity(activityData);
-        // console.log("$s activityData: ", $scope.activityData)
+        categoryFactory.set($scope.activityData);
       });
     }
   })
@@ -179,7 +198,8 @@ var category = angular
 
   .factory('categoryFactory', ['$document', '$http', function($document, $http){
     var category = {};
-    var oldData = {}
+    var oldData = {};
+    var activitiesObj = {};
 
     var sendData = function(payload, selectedActivity){
       payload.time = Date.now()
@@ -189,8 +209,15 @@ var category = angular
     var getAllData = function(user){
       return $http.post('/api/all', {userID: '001'});
     }
-
+    var setter = function(data) {
+      activitiesObj = data;
+    }
+    var getter = function() {
+      return activitiesObj;
+    }
     return {
+      set: setter,
+      get: getter,
       sendData : sendData,
       category : category,
       getAllData : getAllData
