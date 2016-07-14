@@ -5,7 +5,27 @@
  */
 
 /* Global Styles */
-
+/*#signin {
+  background-image: url("https://pixabay.com/static/uploads/photo/2015/06/02/04/22/racetrack-794589_960_720.jpg");
+  /*background-repeat: no-repeat;
+  background-position: center;*/
+  content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.6;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}*/
 
 body {
     margin-top: 100px;
