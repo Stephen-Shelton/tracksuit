@@ -13,11 +13,13 @@ angular.module("app", [
   $stateProvider.state('goals', {
     url: '/goals',
     templateUrl: './goals/goals.html',
-    controller: 'goalsController'
+    controller: 'goalsController',
+    authenticate: true
   })
   .state('signin', {
     url: '/signin',
-    templateUrl: './auth/signin.html'
+    templateUrl: './auth/signin.html',
+    authenticate: false
   })
   // .state('category', {
   //   url: '/',
@@ -27,7 +29,8 @@ angular.module("app", [
   .state('dashboard', {
     url: '/',
     templateUrl: './dashboard/dashboard.html',
-    controller: 'categoryController'
+    controller: 'categoryController',
+    authenticate: true
   });
 })
 .run(['$rootScope', '$location', '$state', '$window', function ($rootScope, $location, $state, $window) {
@@ -70,7 +73,6 @@ angular.module("app", [
       // they are logged into this app or not.
       $state.go('signin');
     }
-
   }
 
   // here inside the run phase of angular, our services and controllers
@@ -123,5 +125,11 @@ angular.module("app", [
   //   // }
   // });
 
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+    if(toState.authenticate && $rootScope.user.status !== 'connected') {
+      $state.transitionTo("signin");
+      event.preventDefault();
+    }
+  });
 
 }]);
