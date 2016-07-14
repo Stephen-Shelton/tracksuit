@@ -22,7 +22,7 @@ var category = angular
 
     $scope.category =  categoryFactory.category;
     $scope.activity = $scope.activities[0].label
-    $scope.categoryName = "Sleep";
+    $scope.categoryName = "sleep";
 
     var selectedActivity = $scope.selectedActivity;
 
