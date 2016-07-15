@@ -3,4 +3,8 @@
 <div class='goal-entry' ng-repeat='category in categories'>
   <button type='button' ng-click='createGoal(category.name, 100); postGoal()' value={{category.name}}>{{category.name}}</button>
 </div>
-<h3>{{goals}}</h3>
+<h3>Your Goals:</h3>
+<div class='goal-display-container' ng-repeat='category in categories'>
+  <div class='goal-display'>{{category.name}} Goal: {{goals[category.name].time}} Milliseconds
+  </div>
+</div>

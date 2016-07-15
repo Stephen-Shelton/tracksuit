@@ -28,6 +28,10 @@ angular.module('goals', [])
     .then(goalsFactory.getAllData).then(function(response) {console.log(response.data)});
       //.then display posted data
   }
+
+  goalsFactory.getAllData().then(function(response) {response.data.forEach(function(goal) {
+    $scope.goals[goal.activity] = goal;
+  })});
 }])
 
 .factory('goalsFactory', ['$http', function($http) {
@@ -44,7 +48,8 @@ angular.module('goals', [])
     return $http.post('/api/goals', payload)
   };
   var getAllData = function(user){
-    return $http.get('/api/goals', {userID: '001'});
+    // until user login is implemented, userID can be specified in headers.
+    return $http.get('/api/goals', {headers: {'x-userid': 'testID'}});
   }
 
   return {
