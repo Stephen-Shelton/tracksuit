@@ -7,7 +7,6 @@
 angular.module('goals', [])
 
 .controller('goalsController', ['$scope', 'goalsFactory', function($scope, goalsFactory) {
-  $scope.time = goalsFactory.time;
   $scope.categories = goalsFactory.categories;
   $scope.goals = goalsFactory.goals;
 
@@ -23,10 +22,9 @@ angular.module('goals', [])
     return goal;
   };
 
-  $scope.postGoal = function(categories, time) {
-    goalsFactory.sendData($scope.createGoal('Exercise', 1000), {name: 'Exercise'})
+  $scope.postGoal = function(category, time) {
+    goalsFactory.sendData($scope.createGoal(category, time), {name: category})
     .then(goalsFactory.getAllData).then(function(response) {console.log(response.data)});
-      //.then display posted data
   }
 
   goalsFactory.getAllData().then(function(response) {response.data.forEach(function(goal) {
@@ -36,14 +34,12 @@ angular.module('goals', [])
 
 .factory('goalsFactory', ['$http', function($http) {
   var categories = [
-    { name: 'Sleep' },
-    { name: 'Exercise' }
+    { name: 'Sleep', time: 0 },
+    { name: 'Exercise', time: 0 }
   ];
-  var time = 0;
   var goals = {};
 
   var sendData = function(payload, selectedActivity){
-    payload.time = 1000;
     payload.activity = selectedActivity.name;
     return $http.post('/api/goals', payload)
   };
@@ -54,7 +50,6 @@ angular.module('goals', [])
 
   return {
     categories: categories,
-    time: time,
     goals: goals,
     sendData: sendData,
     getAllData: getAllData
