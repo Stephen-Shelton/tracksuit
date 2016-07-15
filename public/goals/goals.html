@@ -1,6 +1,16 @@
 <!-- //interface for setting goals -->
 
 <div class='goal-entry' ng-repeat='category in categories'>
-  <button type='button' ng-click='createGoal(category.name, 100)' value={{category.name}}>{{category.name}}</button>
+  <form class='goal-input' ng-submit='createGoal(category.name, category.time); postGoal();'>
+    <li>
+      Activity: <span class='category-name'>{{category.name}}</span>
+      for <input type='number' name='time' ng-model='category.time'> Hours
+      <input type="submit" name="submit" value="Edit Goal" class='submit-button'>
+    </li>
+  </form>
 </div>
-<h3>{{goals}}</h3>
+<h3>Your Goals:</h3>
+<div class='goal-display-container' ng-repeat='category in categories'>
+  <div class='goal-display'>{{category.name}} Goal: {{goals[category.name].time}} Hours
+  </div>
+</div>
