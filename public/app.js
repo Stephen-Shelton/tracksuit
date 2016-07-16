@@ -67,12 +67,22 @@ angular.module("app", [
     FB.Event.subscribe('auth.authResponseChange', function(res) {
 
       if (res.status === 'connected') {
+        FB.api('/me', function(res) {
+          $rootScope.$apply(function() {
+            $rootScope.user = res;
+          });
+        });
         $state.go('dashboard');
 
       } else if (res.status === 'not_authorized') {
         $state.go('signin');
       }
       else {
+        FB.logout(function(response) {
+          $rootScope.$apply(function() {
+            $rootScope.user = {};
+          });
+        });
         $state.go('signin');
       }
 
