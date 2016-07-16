@@ -73,12 +73,8 @@ angular.module("app", [
           });
         });
         $state.go('dashboard');
-
-      } else if (res.status === 'not_authorized') {
-        $state.go('signin');
-      }
-      else {
-        FB.logout(function(response) {
+      } else {
+        FB.logout(function(res) {
           $rootScope.$apply(function() {
             $rootScope.user = {};
           });
