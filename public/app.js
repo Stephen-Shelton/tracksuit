@@ -4,7 +4,8 @@ angular.module("app", [
   'goals',
   'ui.router',
   'angularMoment',
-  'Auth'
+  'Auth',
+  'goalProgress'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -28,12 +29,6 @@ angular.module("app", [
     controller: 'goalsController',
     authenticate: true
   })
-
-  // .state('category', {
-  //   url: '/',
-  //   templateUrl: './category/category.html',
-  //   controller: 'categoryController'
-  // })
 })
 .run(['$rootScope', '$location', '$state', '$window', function ($rootScope, $location, $state, $window, sAuth) {
 
@@ -85,5 +80,3 @@ angular.module("app", [
   })
 
 }]);
-
-
