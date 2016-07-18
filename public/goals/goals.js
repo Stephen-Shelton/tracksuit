@@ -6,13 +6,13 @@
 
 angular.module('goals', [])
 
-.controller('goalsController', ['$scope', 'goalsFactory', function($scope, goalsFactory) {
+.controller('goalsController', ['$rootScope', '$scope', 'goalsFactory', function($rootScope, $scope, goalsFactory) {
   $scope.categories = goalsFactory.categories;
   $scope.goals = goalsFactory.goals;
 
   $scope.createGoal = function(category, time) {
     var goal = {
-      userID: 'testID', //TODO: Update this to username from global factoryvar
+      userID: $rootScope.user.data.id,
       category: category,
       activity: category, //TODO: Update this to activity from $scope
       time: time
@@ -34,12 +34,12 @@ angular.module('goals', [])
   })});
 }])
 
-.factory('goalsFactory', ['$http', function($http) {
+.factory('goalsFactory', ['$http', '$rootScope', function($http, $rootScope) {
   var categories = [
-    { name: 'Sleep', time: 0, colorClass: 'panel-primary' },
-    { name: 'Fun', time: 0, colorClass: 'panel-green' },
-    { name: 'Work', time: 0, colorClass: 'panel-red' },
-    { name: 'Development', time: 0, colorClass: 'panel-yellow'}
+    { name: 'sleep', time: 0, colorClass: 'panel-primary' },
+    { name: 'exercise', time: 0, colorClass: 'panel-green' },
+    { name: 'work', time: 0, colorClass: 'panel-red' },
+    { name: 'Self Improvement', time: 0, colorClass: 'panel-yellow'}
   ];
   var goals = {};
 
@@ -47,8 +47,8 @@ angular.module('goals', [])
     return $http.post('/api/goals', payload)
   };
   var getAllData = function(user){
-    // until user login is implemented, userID can be specified in headers.
-    return $http.get('/api/goals', {headers: {'x-userid': 'testID'}});
+    var id = $rootScope.user.data.id;
+    return $http.get('/api/goals', {headers: {'x-userid': id}});
   }
 
   return {

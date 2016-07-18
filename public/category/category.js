@@ -108,11 +108,10 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
 
         $scope.activityData = parseActivity(activityData);
         $scope.barChartData = parseBarChartData(activityData);
-        console.log('barChartData: ', $scope.barChartData);
         categoryFactory.set($scope.activityData);
       });
     };
-
+    $scope.getAllData();
   }])
 
   .controller('chartCtrl', ['$scope', 'categoryFactory', function($scope, categoryFactory) {
