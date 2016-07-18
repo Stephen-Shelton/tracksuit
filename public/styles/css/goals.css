@@ -6,3 +6,30 @@
 .goal-display {
   margin-left: 5px;
 }
+
+.sleep{
+     background-color: #337AB7 !important;
+}
+
+
+.work{
+     background-color: #D9534F !important;
+}
+
+
+.social{
+     background-color: #5CB85C !important;
+}
+
+
+.self-improvement{
+     background-color: #F0AD4E !important;
+}
+
+.blank{
+  background-color: white !important;
+}
+
+.progress{
+    margin-bottom: 0 !important;
+}
