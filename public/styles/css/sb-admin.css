@@ -246,3 +246,12 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+
+.fb-login-button {
+    padding-top: 13px;
+    padding-right: 6px;
+}
+
+.activities {
+    padding-left: 15px;
+}
