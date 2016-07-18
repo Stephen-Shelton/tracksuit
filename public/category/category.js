@@ -17,6 +17,7 @@ var category = angular
     $scope.$watch(function() {return categoryFactory.get();}, function (value) {
       var dougnutData = {}
       
+
       for (var i = 0; i < value.length; i++) {
         var activity = value[i];
         if(!dougnutData[activity.category]){
@@ -28,9 +29,13 @@ var category = angular
 
       }
       for(var prop in dougnutData){
-        $scope.labels.push(prop);
-        $scope.data.push(Math.round(dougnutData[prop]/1000/60/60))
-        // $scope.colours.push(colors[prop])
+          if($scope.labels.indexOf(prop) === -1){
+
+            $scope.labels.push(prop);
+            $scope.data.push(Math.round(dougnutData[prop]/1000/60/60))
+            // $scope.colours.push(colors[prop])
+          
+          }
       }
     });
     
@@ -107,6 +112,8 @@ var category = angular
               });
             }
           });
+          console.log(activityData)
+          
         });
 
         function parseActivity(activitiesObj){
