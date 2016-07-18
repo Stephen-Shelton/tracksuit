@@ -112,7 +112,8 @@ var category = angular
               });
             }
           });
-          console.log(activityData)
+          $scope.unparsedActivityData = activityData
+          
           
         });
 
@@ -133,7 +134,42 @@ var category = angular
           return activityResults;
         }
 
+        function parseBarChartData(activitiesObj){
+          var obj = {}
+          for(var date in activitiesObj){
+            var barChartData = {};
+            activitiesObj[date].forEach(function(activity){
+              barChartData[JSON.stringify({
+                start: activity.time[0],
+                stop: activity.time[1]
+              })] = activity.category;
+            })
+            obj[date] = sortBarChartData(barChartData);
+          }
+          
+          return obj;
+        }
+
+        function sortBarChartData(barChartDataObj){
+          var sortedActivityArray = Object.keys(barChartDataObj).sort(function(a,b) {
+            return a.start - b.start;
+          });
+          return insertBlankSpace(sortedActivityArray)
+        }
+
+        function insertBlankSpace(sortedActivityArray){
+          var parsedContainer = []
+          if(sortedActivityArray.length<2){
+            
+          }
+          for(var i = 0; i< sortedActivityArray.length -1; i++){
+            parsedContainer.push(JSON.parse(sortedActivityArray[i]));
+          }
+        }
+
         $scope.activityData = parseActivity(activityData);
+        $scope.barChartData = parseBarChartData(activityData)
+        console.log('barChartData: ', $scope.barChartData)
         categoryFactory.set($scope.activityData);
       });
     }

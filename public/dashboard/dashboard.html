@@ -80,9 +80,8 @@
     <div class="row">
         <h2>Calendar View</h2>
         <p>See your daily activities here:</p>
-
+<!-- 
         <div>
-       
         <table class="table">
             <thead>
               <tr>
@@ -91,9 +90,9 @@
               </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="activity in activityData">
+                <tr ng-repeat="(date, acitivityArray) in unparsedActivityData">
                 <td class = "col-xs-1">
-                    {{activity}}
+                    {{date}}
                 </td>
                 <td class="col-xs-11">
                     <div class="progress">
@@ -108,7 +107,20 @@
                 </tr>
             </tbody>
         </table>
+        </div> -->
+
+        <div ng-repeat="(date, acitivityArray) in unparsedActivityData" >
+            <div class= "col-xs-1">{{date}}</div>
+            <div class="col-xs-11 progress">
+              <div class="progress-bar sleep" role="progressbar" style="width:40%"></div>
+              <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
+              <div class="progress-bar work" role="progressbar" style="width:5%"></div>
+              <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
+              <div class="progress-bar social" role="progressbar" style="width:20%"></div>
+              <div class="progress-bar self-improvement" role="progressbar" style="width:10%"></div>
+            </div>   
         </div>
+
     </div>
 
 
