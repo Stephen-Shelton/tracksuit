@@ -4,7 +4,7 @@
           <div class="row">
             <div class="col-xs-3">
               <h2 class="category">Sleep</h2>
-              <i class="fa fa-comments fa-5x"></i>
+              <!-- <i class="fa fa-comments fa-5x"></i> -->
             </div>
             <div class="col-xs-9 text-right">
                 <div class="huge">
@@ -14,10 +14,12 @@
                   </br>Started: [Moment Stamp]
                 </div>
             </div>
-            <select ng-options="activity as activity.label for activity in activities track by activity.id"
-            ng-model="selectedActivity">
-              {{activity}}
-            </select>
+            <div class="activities">
+              <select ng-options="activity as activity.label for activity in activities track by activity.id"
+              ng-model="selectedActivity">
+                {{activity}}
+              </select>
+            </div>
           </div>
         </div>
         <a href="#">

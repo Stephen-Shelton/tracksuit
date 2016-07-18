@@ -53,10 +53,10 @@ angular.module("app", [
 
       if (res.status === 'connected') {
         $rootScope.user = res;
-        console.log($rootScope.user)
-        console.log(res)
         FB.api('/me', function(res) {
-          $rootScope.$apply(function(res) {
+          $rootScope.$apply(function() {
+            $rootScope.user.data = res;
+            console.log($rootScope.user)
           });
         });
         $state.go('dashboard');
