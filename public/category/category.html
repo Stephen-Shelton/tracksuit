@@ -11,13 +11,15 @@
             <button class='btn btn-lg btn-default' ng-click="sendData(category.category, selectedActivity);"> Submit </button>
           </div>
           <div>
-            </br>Started: [Moment Stamp]
+            Started: [Moment Stamp]
           </div>
         </div>
-        <select ng-options="activity as activity.label for activity in category.activities track by activity.id"
-        ng-model="selectedActivity">
-          {{activity}}
-        </select>
+        <div class="activities">
+          <select ng-options="activity as activity.label for activity in category.activities track by activity.id"
+          ng-model="selectedActivity">
+            {{activity}}
+          </select>
+        </div>
       </div>
     </div>
   </div>
