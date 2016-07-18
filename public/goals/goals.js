@@ -34,12 +34,12 @@ angular.module('goals', [])
   })});
 }])
 
-.factory('goalsFactory', ['$http', function($http) {
+.factory('goalsFactory', ['$http', '$rootScope', function($http, $rootScope) {
   var categories = [
-    { name: 'Sleep', time: 0, colorClass: 'panel-primary' },
-    { name: 'Fun', time: 0, colorClass: 'panel-green' },
-    { name: 'Work', time: 0, colorClass: 'panel-red' },
-    { name: 'Development', time: 0, colorClass: 'panel-yellow'}
+    { name: 'sleep', time: 0, colorClass: 'panel-primary' },
+    { name: 'exercise', time: 0, colorClass: 'panel-green' },
+    { name: 'work', time: 0, colorClass: 'panel-red' },
+    { name: 'Self Improvement', time: 0, colorClass: 'panel-yellow'}
   ];
   var goals = {};
 
