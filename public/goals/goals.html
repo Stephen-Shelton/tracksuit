@@ -21,10 +21,10 @@
           <div class="row">
             <div class="col-xs-3">
               <h2 class="category">{{category.name}}</h2>
-              <!-- <i class="fa fa-comments fa-5x"></i> -->
+              <i class="fa fa-comments fa-5x"></i>
             </div>
             <div class="col-xs-9 text-right">
-              <form class='goal-input' ng-submit='createGoal(category.name, category.time); postGoal();'>
+              <form class='goal-input' ng-submit='createGoal(category.name, category.time);'>
                 <div>
                   <input type='number' class='goal-time-input' name='time' ng-model='category.time'> Hours
                 </div>
