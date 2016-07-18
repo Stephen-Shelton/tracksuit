@@ -19,15 +19,17 @@ angular.module('goals', [])
     };
 
     $scope.goals[goal.activity] = goal;
+    $scope.postGoal(goal);
     return goal;
   };
 
-  $scope.postGoal = function(category, time) {
-    goalsFactory.sendData($scope.createGoal(category, time), {name: category})
+  $scope.postGoal = function(goal) {
+    goalsFactory.sendData(goal)
     .then(goalsFactory.getAllData).then(function(response) {console.log(response.data)});
   }
 
-  goalsFactory.getAllData().then(function(response) {response.data.forEach(function(goal) {
+  goalsFactory.getAllData().then(function(response) {
+    response.data.forEach(function(goal) {
     $scope.goals[goal.activity] = goal;
   })});
 }])
@@ -41,8 +43,7 @@ angular.module('goals', [])
   ];
   var goals = {};
 
-  var sendData = function(payload, selectedActivity){
-    payload.activity = selectedActivity.name;
+  var sendData = function(payload){
     return $http.post('/api/goals', payload)
   };
   var getAllData = function(user){
