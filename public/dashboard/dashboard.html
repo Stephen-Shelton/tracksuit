@@ -1,19 +1,19 @@
 <div class="container-fluid">
 
 <!-- ** Page Heading *************-->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Your Activity Manager <small></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li class="active">
-                    <i class="fa fa-dashboard"></i>
-                    Dashboard
-                </li>
-            </ol>
-        </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+          Your Activity Manager <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li class="active">
+          <i class="fa fa-dashboard"></i>
+            Dashboard
+        </li>
+      </ol>
     </div>
+  </div>
 <!-- ** Category Selectors *******-->
 
 <div class="row">
@@ -21,7 +21,7 @@
 </div>
 <!-- ** Secondary Data Display ***-->
     <div class="row">
-        
+
 
         <!-- ** Doughnut Chart ***-->
         <div class="col-lg-4">
@@ -48,7 +48,7 @@
                     <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Goal Progress </h3>
                 </div>
                 <div class="panel-body">
-                    
+
                     <!-- GOAL PROGRESS BARS HERE -->
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width:40%">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
 
-        
+
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width:10%">
                               Exercise
@@ -75,40 +75,10 @@
     </div>
 <!-- ** Main Data Display ********-->
 
-
-<div ng-controller="sleepController" ng-model="category" >
+<div ng-controller="categoryController" ng-model="category" >
     <div class="row">
         <h2>Calendar View</h2>
         <p>See your daily activities here:</p>
-<!-- 
-        <div>
-        <table class="table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Breakdown</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(date, acitivityArray) in unparsedActivityData">
-                <td class = "col-xs-1">
-                    {{date}}
-                </td>
-                <td class="col-xs-11">
-                    <div class="progress">
-                      <div class="progress-bar sleep" role="progressbar" style="width:40%"></div>
-                      <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
-                      <div class="progress-bar work" role="progressbar" style="width:5%"></div>
-                      <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
-                      <div class="progress-bar social" role="progressbar" style="width:20%"></div>
-                      <div class="progress-bar self-improvement" role="progressbar" style="width:10%"></div>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
-        </table>
-        </div> -->
-
         <div ng-repeat="(date, acitivityArray) in unparsedActivityData" >
             <div class= "col-xs-1">{{date}}</div>
             <div class="col-xs-11 progress">
@@ -118,9 +88,8 @@
               <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
               <div class="progress-bar social" role="progressbar" style="width:20%"></div>
               <div class="progress-bar self-improvement" role="progressbar" style="width:10%"></div>
-            </div>   
+            </div>
         </div>
-
     </div>
 
 
@@ -158,6 +127,5 @@
             </div>
         </div>
     </div>
-</div>
 
 </div> <!-- /.container-fluid -->

@@ -1,88 +1,26 @@
-var category = angular
-  .module('category', ['angularMoment', 'chart.js'])
+var category = angular.module('category', ['angularMoment', 'chart.js'])
+  .controller('categoryController', ['$scope', '$http', '$document', 'categoryFactory', function($scope, $http, $document, categoryFactory) {
 
-  .controller('categoryController', function($scope, $http, $document, categoryFactory){
-    
-  })
-  .controller('chartCtrl', function($scope, categoryFactory) {
-    $scope.labels = [];
-    $scope.data = [];
-    var colors = {
-      sleep: '#337AB7',
-      fun: "#5CB85C",
-      work: "#D9534F",
-      development:"#F0AD4E"
-    }
-   
-    $scope.$watch(function() {return categoryFactory.get();}, function (value) {
-      var dougnutData = {}
-      
+    $scope.categories = categoryFactory.categories;
 
-      for (var i = 0; i < value.length; i++) {
-        var activity = value[i];
-        if(!dougnutData[activity.category]){
-          dougnutData[activity.category] = activity.duration;
-        }
-        else {
-          dougnutData[activity.category] += activity.duration;
-        }
-
-      }
-      for(var prop in dougnutData){
-          if($scope.labels.indexOf(prop) === -1){
-
-            $scope.labels.push(prop);
-            $scope.data.push(Math.round(dougnutData[prop]/1000/60/60))
-            // $scope.colours.push(colors[prop])
-          
-          }
-      }
-    });
-    
-  })
-
-  .controller('sleepController', function($scope, $http, $document, categoryFactory){
-    $scope.activities = [
-      {
-        id: 1,
-        label: 'Nap'
-      },
-      {
-        id: 2,
-        label: 'Deep Sleep'
-      }];
-
-      $scope.message = {
-        text: 'hello world!',
-        time: new Date()
+    $scope.sendData = function(category, selectedActivity){
+      var payload = {
+        category: category
       };
-
-    $scope.category =  categoryFactory.category;
-    $scope.activity = $scope.activities[0].label
-    $scope.categoryName = "sleep";
-
-    var selectedActivity = $scope.selectedActivity;
-
-    $scope.payload = {
-      category: $scope.categoryName,
-      activity: selectedActivity,
-      time: ""
-    };
-
-    $scope.sendData = function(payload, selectedActivity){
+      console.log(payload, selectedActivity);
       categoryFactory.sendData(payload, selectedActivity).then(function(response){
-        $scope.category.category = response.data.category;
-        $scope.category.activity = response.data.activity;
-        $scope.category.duration = response.data.duration;
+        $scope.categories.category = response.data.category;
+        $scope.categories.activity = response.data.activity;
       });
-    }
+    };
 
     $scope.getAllData = function(){
       categoryFactory.getAllData().then(function(response){
         var activityData = {};
+
         response.data.forEach(function(doc){
           doc.time.forEach(function(time){
-            var start = new Date(time[0])
+            var start = new Date(time[0]);
             var startDate =  (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear();
             var stop = new Date(time[1]);
             var stopDate = (stop.getMonth() + 1) + "/" + stop.getDate() + "/" + stop.getFullYear();
@@ -112,13 +50,14 @@ var category = angular
               });
             }
           });
-          $scope.unparsedActivityData = activityData
-          
-          
+          $scope.unparsedActivityData = activityData;
+
+
         });
 
         function parseActivity(activitiesObj){
-          activityResults = []
+          var activityResults = [];
+
           for(var prop in activitiesObj){
             activitiesObj[prop].forEach(function(activity){
                 individualActivity = {};
@@ -127,15 +66,15 @@ var category = angular
                 individualActivity.activity = activity.activity;
                 individualActivity.start = moment(activity.time[0]).format('h:mm A');
                 individualActivity.stop =  moment(activity.time[1]).format('h:mm A');
-                individualActivity.duration =  Math.floor(moment.duration((activity.time[1] - activity.time[0])/1000/60/60, 'hours'))
+                individualActivity.duration =  Math.floor(moment.duration((activity.time[1] - activity.time[0])/1000/60/60, 'hours'));
                 activityResults.push(individualActivity);
-            })
+            });
           }
           return activityResults;
         }
 
         function parseBarChartData(activitiesObj){
-          var obj = {}
+          var obj = {};
           for(var date in activitiesObj){
             var barChartData = {};
             activitiesObj[date].forEach(function(activity){
@@ -143,10 +82,10 @@ var category = angular
                 start: activity.time[0],
                 stop: activity.time[1]
               })] = activity.category;
-            })
+            });
             obj[date] = sortBarChartData(barChartData);
           }
-          
+
           return obj;
         }
 
@@ -154,13 +93,13 @@ var category = angular
           var sortedActivityArray = Object.keys(barChartDataObj).sort(function(a,b) {
             return a.start - b.start;
           });
-          return insertBlankSpace(sortedActivityArray)
+          return insertBlankSpace(sortedActivityArray);
         }
 
         function insertBlankSpace(sortedActivityArray){
-          var parsedContainer = []
+          var parsedContainer = [];
           if(sortedActivityArray.length<2){
-            
+
           }
           for(var i = 0; i< sortedActivityArray.length -1; i++){
             parsedContainer.push(JSON.parse(sortedActivityArray[i]));
@@ -168,101 +107,136 @@ var category = angular
         }
 
         $scope.activityData = parseActivity(activityData);
-        $scope.barChartData = parseBarChartData(activityData)
-        console.log('barChartData: ', $scope.barChartData)
+        $scope.barChartData = parseBarChartData(activityData);
+        console.log('barChartData: ', $scope.barChartData);
         categoryFactory.set($scope.activityData);
       });
-    }
-  })
-
-  .controller('funController', function($scope, $http, $document, categoryFactory){
-   $scope.categoryName = "Fun"
-   $scope.state = "start";
-    $scope.payload = {
-      category: $scope.categoryName,
-      time: "",
-      state: ""
-    };
-     $scope.category = {
-        category : "filler text",
-        duration : "0 seconds"
-      };
-    $scope.sendData = categoryFactory.sendData;
-
-    $scope.changeState = function(){
-      $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
     };
 
-    $scope.category = categoryFactory.category;
+  }])
 
-  })
-  .controller('workController', function($scope, $http, $document, categoryFactory){
-   $scope.categoryName = "work"
-   $scope.state = "start";
-    $scope.payload = {
-      category: $scope.categoryName,
-      time: "",
-      state: ""
-    };
-     $scope.category = {
-        category : "filler text",
-        duration : "0 seconds"
-      };
-    $scope.sendData = categoryFactory.sendData;
+  .controller('chartCtrl', ['$scope', 'categoryFactory', function($scope, categoryFactory) {
+    $scope.labels = [];
+    $scope.data = [];
 
-    $scope.changeState = function(){
-      $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
+    var colors = {
+      sleep: '#337AB7',
+      fun: "#5CB85C",
+      work: "#D9534F",
+      development:"#F0AD4E"
     };
 
-    $scope.category = categoryFactory.category;
+    $scope.$watch(function() {return categoryFactory.get();}, function (value) {
+      var dougnutData = {};
 
-  })
-  .controller('selfController', function($scope, $http, $document, categoryFactory){
-   $scope.state = "start";
-   $scope.categoryName = "Self Improvement"
-    $scope.payload = {
-      category: $scope.categoryName,
-      time: "",
-      state: ""
-    };
-     $scope.category = {
-        category : "filler text",
-        duration : "0 seconds"
-      };
-    $scope.sendData = categoryFactory.sendData;
+      for (var i = 0; i < value.length; i++) {
+        var activity = value[i];
+        if(!dougnutData[activity.category]){
+          dougnutData[activity.category] = activity.duration;
+        }
+        else {
+          dougnutData[activity.category] += activity.duration;
+        }
 
-    $scope.changeState = function(){
-      $scope.state === "start" ? $scope.state = "stop" : $scope.state = "start"
-    };
-
-    $scope.category = categoryFactory.category;
-
-  })
+      }
+      for(var prop in dougnutData){
+        $scope.labels.push(prop);
+        $scope.data.push(Math.round(dougnutData[prop]/1000/60/60));
+        // $scope.colours.push(colors[prop])
+      }
+    });
+  }])
 
   .factory('categoryFactory', ['$document', '$http', function($document, $http){
-    var category = {};
-    var oldData = {};
+    // var category = {};
+
+    var categories = [
+      {
+        category: 'Sleep',
+        time: 0,
+        colorClass: 'panel-primary',
+        activities: [
+          {
+            id: 1,
+            label: 'Nap'
+          },
+          {
+            id: 2,
+            label: 'Deep Sleep'
+        }]
+      },
+      {
+        category: 'Fun',
+        time: 0,
+        colorClass: 'panel-green',
+        activities: [
+          {
+            id: 1,
+            label: 'Visit Friends'
+          },
+          {
+            id: 2,
+            label: 'Play Games'
+        }]
+      },
+      {
+        category: 'Work',
+        time: 0,
+        colorClass: 'panel-red',
+        activities: [
+          {
+            id: 1,
+            label: 'Office Time'
+          },
+          {
+            id: 2,
+            label: 'Work From Home'
+        }]
+      },
+      {
+        category: 'Development',
+        time: 0,
+        colorClass: 'panel-yellow',
+        activities: [
+          {
+            id: 1,
+            label: 'Study Databases'
+          },
+          {
+            id: 2,
+            label: 'Study Angular'
+        }]
+      }
+    ];
+
     var activitiesObj = {};
 
     var sendData = function(payload, selectedActivity){
-      payload.time = Date.now()
-      payload.activity = selectedActivity.label
-      return $http.post('/api/toggleActivity', payload)
+      console.log("SELECTED ACTIVITY 1:",selectedActivity);
+      payload.time = Date.now();
+      payload.activity = selectedActivity.label;
+      console.log("PAYLOAD:",payload);
+      return $http.post('/api/toggleActivity', payload);
     };
+
     var getAllData = function(user){
       return $http.post('/api/all', {userID: '001'});
-    }
+    };
+
     var setter = function(data) {
       activitiesObj = data;
-    }
+    };
+
     var getter = function() {
       return activitiesObj;
-    }
+    };
+
     return {
       set: setter,
       get: getter,
       sendData : sendData,
-      category : category,
+      // category : category,
+      categories: categories,
       getAllData : getAllData
-    }
-  }])
+    };
+  }]);
