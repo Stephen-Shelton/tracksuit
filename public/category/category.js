@@ -163,9 +163,11 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
 
       }
       for(var prop in dougnutData){
-        $scope.labels.push(prop);
-        $scope.data.push(Math.round(dougnutData[prop]/1000/60/60));
-        // $scope.colours.push(colors[prop])
+        if($scope.labels.indexOf(prop) === -1){
+          $scope.labels.push(prop);
+          $scope.data.push(Math.round(dougnutData[prop]/1000/60/60));
+        }
+        
       }
     });
   }])
