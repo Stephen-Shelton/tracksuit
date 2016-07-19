@@ -112,7 +112,7 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
             var percentage = (obj.stop - obj.start)/1000/60/60/24*100
             var category = colorMap[date][JSON.stringify(obj)]
             var percentageObj = {}
-            percentageObj.percentage = percentage;
+            percentageObj.percentage = Math.floor(percentage);
             percentageObj.category = category
             percentages.push(percentageObj)
           })
@@ -130,8 +130,9 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
         // }
 
         $scope.activityData = parseActivity(activityData);
-
+        console.log('unparsed: ', $scope.unparsedActivityData)
         $scope.barChartData = parseBarChartData(activityData)
+        // console.log('bcd: ', $scope.barChartData)
         categoryFactory.set($scope.activityData);
       });
     };
