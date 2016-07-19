@@ -80,16 +80,12 @@
     <div class="row">
         <h2>Calendar View</h2>
         <p>See your daily activities here:</p>
-        <div ng-repeat="(date, acitivityArray) in unparsedActivityData" >
+        <div ng-repeat="(date, percentageArr) in barChartData" >
             <div class= "col-xs-1">{{date}}</div>
             <div class="col-xs-11 progress">
-              <div class="progress-bar sleep" role="progressbar" style="width:40%"></div>
-              <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
-              <div class="progress-bar work" role="progressbar" style="width:5%"></div>
-              <div class="progress-bar blank" role="progressbar" style="width:10%"></div>
-              <div class="progress-bar social" role="progressbar" style="width:20%"></div>
-              <div class="progress-bar self-improvement" role="progressbar" style="width:10%"></div>
-            </div>
+              <div ng-repeat="percentage in percentageArr" class="progress-bar {{percentage.category}}" role="progressbar" ng-style="{'width': percentage.percentage + '%'}">
+              </div>
+            </div>   
         </div>
     </div>
 

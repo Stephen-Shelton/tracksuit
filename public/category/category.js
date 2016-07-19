@@ -50,9 +50,8 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
               });
             }
           });
-          $scope.unparsedActivityData = activityData;
 
-
+          $scope.unparsedActivityData = activityData
         });
 
         function parseActivity(activitiesObj){
@@ -71,7 +70,10 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
             });
           }
           return activityResults;
-        }
+        };
+
+
+        var colorMap = {};
 
         function parseBarChartData(activitiesObj){
           var obj = {};
@@ -82,32 +84,54 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
                 start: activity.time[0],
                 stop: activity.time[1]
               })] = activity.category;
-            });
-            obj[date] = sortBarChartData(barChartData);
+            })
+            colorMap[date] = barChartData;
+            obj[date] = sortBarChartData(barChartData, date);
           }
 
           return obj;
         }
 
-        function sortBarChartData(barChartDataObj){
+        function sortBarChartData(barChartDataObj, date){
           var sortedActivityArray = Object.keys(barChartDataObj).sort(function(a,b) {
-            return a.start - b.start;
+            return JSON.parse(a).start - JSON.parse(b).start;
           });
-          return insertBlankSpace(sortedActivityArray);
+          return parsePercentage(sortedActivityArray, date)
         }
 
-        function insertBlankSpace(sortedActivityArray){
-          var parsedContainer = [];
-          if(sortedActivityArray.length<2){
 
-          }
-          for(var i = 0; i< sortedActivityArray.length -1; i++){
-            parsedContainer.push(JSON.parse(sortedActivityArray[i]));
-          }
+        function parsePercentage(sortedArray, date){
+          var percentages = []
+          var containerArray = []
+          sortedArray.forEach(function(activity){
+            containerArray.push(JSON.parse(activity));
+          })
+
+          containerArray.forEach(function(obj){
+            
+            var percentage = (obj.stop - obj.start)/1000/60/60/24*100
+            var category = colorMap[date][JSON.stringify(obj)]
+            var percentageObj = {}
+            percentageObj.percentage = percentage;
+            percentageObj.category = category
+            percentages.push(percentageObj)
+          })
+        return percentages
         }
+
+        // function insertBlankSpace(sortedActivityArray){
+        //   var parsedContainer = []
+        //   if(sortedActivityArray.length<2){
+            
+        //   }
+        //   for(var i = 0; i< sortedActivityArray.length -1; i++){
+        //     parsedContainer.push(JSON.parse(sortedActivityArray[i]));
+        //   }
+        // }
 
         $scope.activityData = parseActivity(activityData);
-        $scope.barChartData = parseBarChartData(activityData);
+
+        $scope.barChartData = parseBarChartData(activityData)
         categoryFactory.set($scope.activityData);
       });
     };
@@ -139,9 +163,11 @@ var category = angular.module('category', ['angularMoment', 'chart.js'])
 
       }
       for(var prop in dougnutData){
-        $scope.labels.push(prop);
-        $scope.data.push(Math.round(dougnutData[prop]/1000/60/60));
-        // $scope.colours.push(colors[prop])
+        if($scope.labels.indexOf(prop) === -1){
+          $scope.labels.push(prop);
+          $scope.data.push(Math.round(dougnutData[prop]/1000/60/60));
+        }
+        
       }
     });
   }])
