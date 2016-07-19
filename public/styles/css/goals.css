@@ -29,8 +29,10 @@
 
 .blank{
   background-color: white !important;
+  color: black !important;
 }
 
 .progress{
     margin-bottom: 0 !important;
 }
+

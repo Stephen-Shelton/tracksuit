@@ -24,7 +24,7 @@
 
 
         <!-- ** Doughnut Chart ***-->
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Daily Breakdown </h3>
@@ -42,7 +42,7 @@
 
 
         <!-- ** Goals Display ***-->
-        <div class="col-lg-4" ng-controller="goalProgressController">
+        <div class="col-lg-6" ng-controller="goalProgressController">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Goal Progress </h3>
@@ -80,6 +80,34 @@
     <div class="row">
         <h2>Calendar View</h2>
         <p>See your daily activities here:</p>
+        <div class= "col-xs-1"></div>
+        <div class="col-xs-11 progress">
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">12am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">1am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">2am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">3am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">4am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">5am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">6am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">7am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">8am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">9am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">10am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">11am</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">12pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">1pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">2pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">3pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">4pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">5pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">6pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">7pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">8pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">9pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">10pm</div>
+            <div class="progress-bar blank" role="progressbar" style="width: 4.1%">11pm</div>
+
+        </div>
         <div ng-repeat="(date, percentageArr) in barChartData" >
             <div class= "col-xs-1">{{date}}</div>
             <div class="col-xs-11 progress">
@@ -96,7 +124,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Activity Summary</h3>
                     </br>
-                    <button class='btn btn-lg btn-default' id='collect' ng-click="getAllData()"> Collect Data </button>
+                    <button class='btn btn-lg btn-default' id='collect' ng-click="getAllData()"> Refresh Data </button>
                 </div>
                 <div class="panel-body">
                   <table class="table table-striped table-fixed">
